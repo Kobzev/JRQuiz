@@ -65,9 +65,10 @@ public class DataController {
 			return new ModelAndView("registerPage");
 		}
 
-		if (dataService.insertUser(user) < 0 && !emailService.sendEmail(user)) {
+		if (dataService.insertUser(user) < 0 || !emailService.sendEmail(user)) {
 			return new ModelAndView("registerPage");
 		}
+		// return new ModelAndView("registerPage");
 		return new ModelAndView("redirect:login");
 	}
 

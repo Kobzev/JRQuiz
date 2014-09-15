@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>
-	Hello world!  
+	Thanks for registration!  
 </h1>
 </body>
 </html>
