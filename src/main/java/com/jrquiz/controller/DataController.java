@@ -40,6 +40,19 @@ public class DataController {
 		return new ModelAndView("registerPage");
 	}
 
+	@RequestMapping("confirm")
+	public ModelAndView confirm(@RequestParam String id) {
+		User user = dataService.confirmUser(id);
+		ModelAndView modelAndView = new ModelAndView("redirect:confirmRegistration");
+		modelAndView.addObject(user);
+		return modelAndView;
+	}
+
+	@RequestMapping("confirmRegistration")
+	public ModelAndView confirmRegistration(@ModelAttribute User user) {
+		return new ModelAndView("confirmRegistration");
+	}
+
 	@RequestMapping("registerUser")
 	public ModelAndView registerNewUser(@Valid @ModelAttribute User user, BindingResult bindingResult) {
 		if (!dataService.chekUserEmail(user)) {

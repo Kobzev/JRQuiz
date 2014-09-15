@@ -25,7 +25,12 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">  
             <list>  
-                <value>com.jrquiz.domain.User</value>  
+                <value>
+                	com.jrquiz.domain.User
+                </value> 
+                <value>
+                	com.jrquiz.domain.Authorities
+                </value>  
             </list>  
         </property> 
 		<property name="hibernateProperties">

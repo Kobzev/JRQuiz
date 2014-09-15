@@ -42,7 +42,7 @@ public class EmailServiceImpl implements EmailService {
 			// Заголовок письма
 			message.setSubject("registration");
 			// Содержимое
-			message.setText("new test registration");
+			message.setText("To confirm registration you need go to http://localhost:8080/JRQuiz/confirm?id=" + user.getEmailtoken() + "  . Thanks!");
 
 			// Отправляем сообщение
 			Transport.send(message);

@@ -6,7 +6,7 @@ public interface DataDao {
 	// Registration users
 	public int insertUser(User user);
 
-	public int confirmUser(User user);
+	public User confirmUser(String emailToken);
 
 	public User findUserByName(String name);
 

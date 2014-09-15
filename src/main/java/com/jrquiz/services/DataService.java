@@ -6,7 +6,7 @@ public interface DataService {
 	// Registration users
 	public int insertUser(User user);
 
-	public int confirmUser(User user);
+	public User confirmUser(String emailToken);
 
 	public boolean chekUserName(User user);
 

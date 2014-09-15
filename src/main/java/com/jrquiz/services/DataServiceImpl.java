@@ -17,9 +17,9 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public int confirmUser(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+	public User confirmUser(String emailToken) {
+		User user = dataDao.confirmUser(emailToken);
+		return user;
 	}
 
 	@Override
