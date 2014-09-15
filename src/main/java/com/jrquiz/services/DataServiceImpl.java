@@ -22,4 +22,20 @@ public class DataServiceImpl implements DataService {
 		return 0;
 	}
 
+	@Override
+	public boolean chekUserName(User user) {
+		User checkedUser = dataDao.findUserByName(user.getUsername());
+		if (checkedUser == null)
+			return true;
+		return false;
+	}
+
+	@Override
+	public boolean chekUserEmail(User user) {
+		User checkedUser = dataDao.findUserByEmail(user.getEmail());
+		if (checkedUser == null)
+			return true;
+		return false;
+	}
+
 }

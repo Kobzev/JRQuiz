@@ -7,4 +7,8 @@ public interface DataService {
 	public int insertUser(User user);
 
 	public int confirmUser(User user);
+
+	public boolean chekUserName(User user);
+
+	public boolean chekUserEmail(User user);
 }

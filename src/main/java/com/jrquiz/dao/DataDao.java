@@ -7,4 +7,8 @@ public interface DataDao {
 	public int insertUser(User user);
 
 	public int confirmUser(User user);
+
+	public User findUserByName(String name);
+
+	public User findUserByEmail(String email);
 }

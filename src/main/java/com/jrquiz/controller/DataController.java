@@ -9,6 +9,7 @@ import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,9 +42,16 @@ public class DataController {
 
 	@RequestMapping("registerUser")
 	public ModelAndView registerNewUser(@Valid @ModelAttribute User user, BindingResult bindingResult) {
+		if (!dataService.chekUserEmail(user)) {
+			bindingResult.addError(new FieldError("user", "email", "Пользователь с таким e-mail уже существует"));
+		}
+		if (!dataService.chekUserName(user)) {
+			bindingResult.addError(new FieldError("user", "username", "Пользователь с таким именем уже существует"));
+		}
 		if (bindingResult.hasErrors()) {
 			return new ModelAndView("registerPage");
 		}
+
 		if (dataService.insertUser(user) < 0 && !emailService.sendEmail(user)) {
 			return new ModelAndView("registerPage");
 		}
