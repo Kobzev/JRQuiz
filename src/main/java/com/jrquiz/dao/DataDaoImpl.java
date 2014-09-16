@@ -55,6 +55,17 @@ public class DataDaoImpl implements DataDao {
 		return (Integer) id;
 	}
 
+	public int updateUser(User user) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		user.setUpdatetime(new Timestamp(new Date().getTime()));
+		session.saveOrUpdate(user);
+		tx.commit();
+		Serializable id = session.getIdentifier(user);
+		session.close();
+		return (Integer) id;
+	}
+
 	@Override
 	@Transactional
 	public User confirmUser(String emailToken) {
@@ -83,6 +94,7 @@ public class DataDaoImpl implements DataDao {
 		return user;
 	}
 
+	@Override
 	public User findUserByName(String name) {
 		Session session = sessionFactory.openSession();
 		Query query = session.createSQLQuery("select * from Users where username = :name").addEntity(User.class);
@@ -97,6 +109,22 @@ public class DataDaoImpl implements DataDao {
 
 	}
 
+	@Override
+	public User findUserByID(int ID) {
+		Session session = sessionFactory.openSession();
+		Query query = session.createSQLQuery("select * from Users where id = :id").addEntity(User.class);
+		query.setLong("id", ID);
+		@SuppressWarnings("unchecked")
+		List<User> userList = query.list();
+		session.close();
+
+		if (userList.size() == 0)
+			return null;
+		return userList.get(0);
+
+	}
+
+	@Override
 	public User findUserByEmail(String email) {
 		Session session = sessionFactory.openSession();
 		Query query = session.createSQLQuery("select * from Users where email = :email").addEntity(User.class);
@@ -109,6 +137,21 @@ public class DataDaoImpl implements DataDao {
 			return null;
 		return userList.get(0);
 
+	}
+
+	@Override
+	public User findUserByEmailToken(String emailToken) {
+		Session session = sessionFactory.openSession();
+		Query query = session.createSQLQuery("select * from Users where emailtoken = :emailtoken").addEntity(User.class);
+		query.setString("emailtoken", emailToken);
+		@SuppressWarnings("unchecked")
+		List<User> userList = query.list();
+		session.close();
+
+		if (userList.size() == 0)
+			return null;
+
+		return userList.get(0);
 	}
 
 }

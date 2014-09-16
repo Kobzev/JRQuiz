@@ -48,6 +48,7 @@
 
 		<input type="submit" class="btnLogin" value="Log in"> 
 		<a href="registerPage">Register</a>
+		<a href="forgotPassword">Forgot password?</a>
 		</footer>
 		
 		

@@ -6,7 +6,8 @@
 </head>
 <body>
 <h1>
-	Home page!  
+	Home page! 
+	<a href="personalAccount">Go to Personal account</a> 
 </h1>
 </body>
 </html>

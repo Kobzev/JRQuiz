@@ -1,12 +1,16 @@
 package com.jrquiz.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity(name = "Authorities")
 public class Authorities {
 
 	@Id
+	@GeneratedValue
+	private int id;
+
 	private String username;
 
 	private int userID;

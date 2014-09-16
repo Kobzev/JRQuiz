@@ -27,14 +27,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `authorities`;
 create table authorities (
+    id int(11) NOT NULL AUTO_INCREMENT,
     username varchar(45) not null,
     userID int(11),
     authority varchar(50) not null,
-    constraint fk_authorities_users foreign key(userID) references users(ID)
+	PRIMARY KEY(`id`)
 );
-create unique index ix_auth_username on authorities (userID,authority);
 
 
 LOCK TABLES `authorities` WRITE;
-INSERT INTO `authorities` VALUES ('admin',2,'ROLE_ADMIN'),('admin',2,'ROLE_USER'),('user',1,'ROLE_USER');
+INSERT INTO `authorities` VALUES (1,'admin',2,'ROLE_ADMIN'),(2,'admin',2,'ROLE_USER'),(3,'user',1,'ROLE_USER');
 UNLOCK TABLES;

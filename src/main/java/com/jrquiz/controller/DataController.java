@@ -30,7 +30,7 @@ public class DataController {
 	EmailService emailService;
 
 	@RequestMapping("home")
-	public ModelAndView goToHomePage() {
+	public ModelAndView goToHomePage(@ModelAttribute User user) {
 		return new ModelAndView("home");
 	}
 
@@ -65,10 +65,72 @@ public class DataController {
 			return new ModelAndView("registerPage");
 		}
 
-		if (dataService.insertUser(user) < 0 || !emailService.sendEmail(user)) {
+		if (dataService.insertUser(user) < 0 || !emailService.sendRegistrationEmail(user)) {
 			return new ModelAndView("registerPage");
 		}
 		// return new ModelAndView("registerPage");
+		return new ModelAndView("redirect:login");
+	}
+
+	// Change password
+	@RequestMapping("personalAccount")
+	public ModelAndView personalAccount(Principal useracc) {
+		User user = dataService.findUserByName(useracc.getName());
+		ModelAndView modelAndView = new ModelAndView("personalAccount");
+		user.setPassword("");
+		modelAndView.addObject(user);
+		return modelAndView;
+	}
+
+	@RequestMapping("updateUser")
+	public ModelAndView updateUser(@ModelAttribute User user, Principal useracc) {
+		User thisUser = dataService.findUserByName(useracc.getName());
+		dataService.updateUser(thisUser, user);
+		return new ModelAndView("redirect:home");
+
+	}
+
+	// Remind password
+	@RequestMapping("forgotPassword")
+	public ModelAndView forgotPassword(@ModelAttribute User user) {
+		return new ModelAndView("forgotPassword");
+	}
+
+	@RequestMapping("rememberPassword")
+	public ModelAndView rememberPassword(@ModelAttribute User user, BindingResult bindingResult) {
+		if (dataService.chekUserEmail(user)) {
+			bindingResult.addError(new FieldError("user", "email", "Пользователь с таким e-mail не существует"));
+		}
+		if (bindingResult.hasErrors()) {
+			return new ModelAndView("forgotPassword");
+		}
+
+		emailService.sendRemaindPasswordMail(dataService.findUserByEmail(user.getEmail()));
+
+		return new ModelAndView("redirect:login");
+	}
+
+	@RequestMapping("remind")
+	public ModelAndView remind(@RequestParam String id) {
+		User user = dataService.findUserByEmailToken(id);
+		ModelAndView modelAndView = new ModelAndView("changeFogotPassword");
+		user.setPassword("");
+		modelAndView.addObject(user);
+		return modelAndView;
+	}
+
+	// @RequestMapping("changeFogotPassword")
+	// public ModelAndView changeFogotPassword(@ModelAttribute User user, Model
+	// model) {
+	// user.setPassword("");
+	// return new ModelAndView("changeFogotPassword");
+	// }
+
+	@RequestMapping("saveUser")
+	public ModelAndView saveUser(@ModelAttribute User user) {
+		User changeUser = dataService.findUserByID(user.getId());
+		changeUser.setPassword(user.getPassword());
+		dataService.updatePasswordUser(changeUser);
 		return new ModelAndView("redirect:login");
 	}
 

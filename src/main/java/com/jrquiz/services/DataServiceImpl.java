@@ -10,10 +10,22 @@ public class DataServiceImpl implements DataService {
 	@Autowired
 	DataDao dataDao;
 
-	// Registration users
+	// All actions with users
+
 	@Override
 	public int insertUser(User user) {
 		return dataDao.insertUser(user);
+	}
+
+	@Override
+	public int updateUser(User user, User newUser) {
+		user.setPassword(newUser.getPassword());
+		return dataDao.updateUser(user);
+	}
+
+	@Override
+	public int updatePasswordUser(User user) {
+		return dataDao.updateUser(user);
 	}
 
 	@Override
@@ -36,6 +48,26 @@ public class DataServiceImpl implements DataService {
 		if (checkedUser == null)
 			return true;
 		return false;
+	}
+
+	@Override
+	public User findUserByEmail(String email) {
+		return dataDao.findUserByEmail(email);
+	}
+
+	@Override
+	public User findUserByName(String name) {
+		return dataDao.findUserByName(name);
+	}
+
+	@Override
+	public User findUserByEmailToken(String emailToken) {
+		return dataDao.findUserByEmailToken(emailToken);
+	}
+
+	@Override
+	public User findUserByID(int ID) {
+		return dataDao.findUserByID(ID);
 	}
 
 }
