@@ -15,8 +15,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.jrquiz.domain.Authorities;
+import com.jrquiz.domain.GroupMembers;
 import com.jrquiz.domain.User;
 
 public class DataDaoImpl implements DataDao {
@@ -31,8 +33,13 @@ public class DataDaoImpl implements DataDao {
 	public int insertUser(User user) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
+
 		user.setCreatedDate(new Timestamp(new Date().getTime()));
 		user.setUpdatetime(new Timestamp(new Date().getTime()));
+
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(hashedPassword);
 
 		try {
 			MessageDigest m = MessageDigest.getInstance("MD5");
@@ -84,10 +91,9 @@ public class DataDaoImpl implements DataDao {
 		session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		session.saveOrUpdate(user);
-		Authorities authorities = new Authorities();
+		GroupMembers authorities = new GroupMembers();
 		authorities.setUsername(user.getUsername());
-		authorities.setUserID(user.getId());
-		authorities.setAuthority("ROLE_USER");
+		authorities.setGroupID(1);
 		session.save(authorities);
 		tx.commit();
 		session.close();

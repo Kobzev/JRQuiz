@@ -128,9 +128,7 @@ public class DataController {
 
 	@RequestMapping("saveUser")
 	public ModelAndView saveUser(@ModelAttribute User user) {
-		User changeUser = dataService.findUserByID(user.getId());
-		changeUser.setPassword(user.getPassword());
-		dataService.updatePasswordUser(changeUser);
+		dataService.updatePasswordUser(user);
 		return new ModelAndView("redirect:login");
 	}
 

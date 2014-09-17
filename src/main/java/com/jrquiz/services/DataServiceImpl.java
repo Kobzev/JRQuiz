@@ -1,6 +1,8 @@
 package com.jrquiz.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.jrquiz.dao.DataDao;
 import com.jrquiz.domain.User;
@@ -19,13 +21,21 @@ public class DataServiceImpl implements DataService {
 
 	@Override
 	public int updateUser(User user, User newUser) {
-		user.setPassword(newUser.getPassword());
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(newUser.getPassword());
+		user.setPassword(hashedPassword);
 		return dataDao.updateUser(user);
 	}
 
 	@Override
 	public int updatePasswordUser(User user) {
-		return dataDao.updateUser(user);
+		User changeUser = findUserByID(user.getId());
+
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(user.getPassword());
+
+		changeUser.setPassword(hashedPassword);
+		return dataDao.updateUser(changeUser);
 	}
 
 	@Override
