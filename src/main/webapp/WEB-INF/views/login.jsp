@@ -117,7 +117,7 @@
                    </div>
                    <div class="form-group">
                        <div class="col-sm-8">
-                           <input class="form-control" id="password_login" name='password_login' type="password" placeholder="Пароль">
+                           <input class="form-control" id="password_login" name='password_login' type="password" placeholder="Пароль" style="margin: 15px auto auto">
                        </div>
                    </div>
                    <div class="form-group">
@@ -131,11 +131,11 @@
                        <div class="col-sm-10">
                            <button type="submit" class="btn btn-success">Войти</button>
                            <a href="registerPage"><input type="button" class="btn btn-primary" value="Регистрация"></input></a>
-                           <a href="forgotPassword">Forgot password?</a>
                        </div>
                    </div>
                </form>
            </div>
+           <a href="forgotPassword"><input type="button" class="btn btn-danger" value="Забыли пароль?" style="margin: 10px 28px auto"></input></a>
        </div>
    </div>
    </form>
