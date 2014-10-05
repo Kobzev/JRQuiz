@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Welcome to the Spring MVC Quickstart application! Congrats! You just started!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<!--div style="margin-left:45px; background-color: #F8F8F8; width: 600px ">
+    <form action="#" th:action="@{/showquestion}" th:object="${questionid}" th:method="post">
+
+        <div th:each="var : ${allQuestions}">
+            <input type="radio"  th:field="*{checkedId}" th:value="${var.id}" />
+            <label th:text="${var.id}">one</label>
+
+        </div>
+
+        <input type="submit" />
+
+    </form>
+</div-->
+
+<div style="margin-left:45px; background-color: #F8F8F8; width: 600px ">
+    <h3>Choose question by id</h3>
+    <form action="#" th:action="@{/showquestion}" th:object="${questionid}" th:method="post">
+
+        <select th:field="*{checkedId}">
+            <option th:each="var : ${allQuestions}"
+                    th:value="${var.id}"
+                    th:text="${var.id}">Question</option>
+        </select>
+        <br />
+        <br />
+        <input type="submit" />
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome to the Spring MVC Quickstart application! Get started quickly by signing up!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}"/>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Question title</th>
+        <th>Question text</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="aq : ${allQuestions}">
+        <td th:text="${{aq.text}}">text</td>
+        <td th:text="${{aq.title}}">title</td>
+    </tr>
+    </tbody>
+</table>
+
+<div style="margin-left:45px; background-color: #F8F8F8; width: 600px ">
+    <a href="question">Choose Question</a>
+</div>
+<br/>
+<div style="margin-left:45px; background-color: #F8F8F8; width: 600px ">
+    <a href="test">Generate Test</a>
+</div>
+<br/>
+<div style="margin-left:45px; background-color: #F8F8F8; width: 600px ">
+    <a href="tags" th:text = "#{tag.add}">Add Tag</a>
+</div>
+<br/>
+<div style="margin-left:45px; background-color: #F8F8F8; width: 600px ">
+    <a href="runtest?t=1" >Test #1</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Test Generator View</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}"/>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<table style="margin-left: 50px">
+    <thead>
+    <tr>
+        <th>Choose tags:</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="allTags : ${allTags}">
+        <td th:text="${{allTags.tagName}}">tagName</td>
+        <td><label>
+            <input type="checkbox"/>
+        </label></td>
+    </tr>
+    </tbody>
+</table>
+
+<br/><br/>
+
+<div style="margin-left:45px; background-color: #F8F8F8; width: 600px ">
+    Generate test with chosen tags
+<br/><br/>
+
+    <form action="#" th:action="@{/showtest}" th:method="post">
+        <input type="submit" value="Generate!"/>
+    </form>
+
+</div>
+
+</body>
+</html>

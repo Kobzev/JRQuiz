@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome to the Spring MVC Quickstart application! Get started quickly by signing up!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}"/>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<form name="input" action="" th:object="${tag}" method="post">
+    Tag name: <input type="text" th:field="*{tagName}"/>
+    <input type="submit" value="Add new"/>
+    <p th:if="${#fields.hasErrors('tagName')}" th:errors="*{tagName}">Incorrect</p>
+</form>
+
+<a th:each = "tg: ${allTags}" th:href="@{tags/edit(id=${tg.id})}" th:text = "${tg.tagName}" /><br/>
+
+
+</body>
+</html>

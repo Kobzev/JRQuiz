@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome to the Spring MVC Quickstart application! Get started quickly by signing up!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}"/>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-2 column">
+            <div class="btn-group-vertical">
+                <button type="button" class="btn btn-default" th:each="qt,iterStat : ${questionsInTest}" >
+                    <a th:href="@{/runtest(t=1, q=${iterStat.count})}"  th:text="#{question.number}+ ${iterStat.count} ">Question number</a></button>
+                <button type="button" class="btn btn-primary">Submit Test</button>
+            </div>
+        </div>
+        <div class="col-md-6 column">
+            <dl>
+                <dt th:text="${currentQuestion.title}">header</dt>
+                <dt th:text="${currentQuestion.text}">question</dt>
+
+                <dd th:each="var : ${answers}">
+
+                    <input th:if="${currentQuestion.questionType.toString() == 'MULTIANSWER'}" type="checkbox" th:field="${currentQuestion.id}" th:value="${var.id}" th:text="${var.answerText}" />
+                    <input th:if="${currentQuestion.questionType.toString() == 'SINGLEANSWER'}" type="radio" th:field="${currentQuestion.id}" th:value="${var.id}" th:text="${var.answerText}" />
+                    <input th:if="${currentQuestion.questionType.toString() == 'TYPEANSWER'}" type="text" />
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-4 column">
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

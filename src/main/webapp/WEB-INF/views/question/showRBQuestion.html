@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Welcome to the Spring MVC Quickstart application! Congrats! You just started!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<div style="margin-left:45px; background-color: #F8F8F8; width: 600px ">
+
+        <dl>
+            <dt><h3>Radio Button</h3></dt>
+            <dt th:text="${question.title}">header</dt>
+            <dt th:text="${question.text}">question</dt>
+
+            <dd th:each="var : ${answers}">
+                <input type="radio" th:field="${question.id}" th:value="${var.id}" th:text="${var.answerText}" />
+            </dd>
+            <br />
+            <br />
+
+            <dt th:text="${'Created by ' + question.createdBy.userName}">creator</dt>
+            <dt th:text="${#dates.format(question.createDate, 'dd-MMM-yyyy')}">2014</dt>
+
+        </dl>
+</div>
+
+</body>
+</html>
